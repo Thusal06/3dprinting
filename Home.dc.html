@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0e1013;
+    --panel: #15181d;
+    --line: #262b33;
+    --white: #ffffff;
+    --mute: #939ba7;
+    --laser: #aee818;      /* sampled from the powder-bed footage */
+    --gutter: clamp(18px, 4vw, 60px);
+    --ease: cubic-bezier(.16,1,.3,1);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--white);
+         font-family: Archivo, 'Helvetica Neue', Arial, sans-serif;
+         font-size: 18px; line-height: 1.55; -webkit-font-smoothing: antialiased;
+         font-variant-numeric: lining-nums tabular-nums; }
+  ::selection { background: var(--laser); color: #0b0d0f; }
+  a { color: inherit; text-decoration: none; }
+  img, video { display: block; width: 100%; }
+  p { margin: 0; }
+
+  .h { font-weight: 800; font-stretch: 118%; line-height: .9; letter-spacing: -.035em; margin: 0; text-wrap: balance; }
+  .mono { font-weight: 500; font-size: .9rem; letter-spacing: .01em; color: var(--mute); }
+  .wrap { padding-inline: var(--gutter); }
+
+  .masthead { position: sticky; top: 0; z-index: 30; display: flex; align-items: stretch;
+              justify-content: space-between; gap: 1rem; background: #090a0c;
+              border-bottom: 1px solid var(--line); }
+  .brand { display: flex; align-items: center; gap: .6rem; padding: 0 var(--gutter);
+           font-weight: 900; font-stretch: 122%; font-size: 1.05rem; letter-spacing: -.03em;
+           border-right: 1px solid var(--line); }
+  .brand i { width: 10px; height: 10px; background: var(--laser); font-style: normal;
+             clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+  .nav { display: flex; }
+  .nav a { position: relative; display: flex; align-items: center; padding: 1.05rem 1.35rem;
+           font-size: .92rem; font-weight: 700; letter-spacing: .01em; color: var(--mute);
+           border-left: 1px solid var(--line); transition: color .18s var(--ease), background .18s var(--ease); }
+  .nav a:hover { color: var(--white); background: #101216; }
+  .nav a[aria-current] { color: #0b0d0f; background: var(--laser); }
+  @media (max-width: 900px) {
+    .masthead { flex-wrap: wrap; }
+    .brand { border-right: 0; padding: .8rem var(--gutter); }
+    .nav { width: 100%; overflow-x: auto; }
+    .nav a { padding: .8rem 1rem; white-space: nowrap; }
+  }
+
+  /* hero -------------------------------------------------------------- */
+  .hero { position: relative; height: 92vh; min-height: 560px; display: flex; align-items: flex-end; overflow: hidden; }
+  .hero video, .hero .poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hero::after { content: ''; position: absolute; inset: 0;
+    background: radial-gradient(120% 80% at 70% 30%, rgba(14,16,19,.1), rgba(14,16,19,.82) 70%),
+                linear-gradient(180deg, rgba(14,16,19,.7), rgba(14,16,19,0) 30%, rgba(14,16,19,.94)); }
+  .hero-in { position: relative; z-index: 2; width: 100%; padding: 0 var(--gutter) clamp(1.6rem,4vh,3rem); }
+  .hero h1 { font-size: clamp(2.6rem, 8vw, 7rem); max-width: 16ch; }
+  .hero h1 em { font-style: normal; color: #ffffff; }
+  .hero .sub { margin-top: 1rem; font-size: clamp(1.12rem,1.7vw,1.45rem); color: #cfd5dd; max-width: 46ch; font-weight: 500; }
+  .tag { display: inline-flex; align-items: center; gap: .5rem; margin-bottom: 1.2rem;
+         font-size: .84rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+         color: var(--laser); }
+  .tag::before { content: ''; width: 7px; height: 7px; background: var(--laser); border-radius: 50%;
+                 box-shadow: 0 0 0 0 rgba(174,232,24,.7); animation: pulse 2.4s infinite; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 11px rgba(174,232,24,0); } 100% { box-shadow: 0 0 0 0 rgba(174,232,24,0); } }
+  .hero .mono { margin-top: 1.4rem; }
+
+  /* the numbers, loud ------------------------------------------------- */
+  .figs { border-top: 1px solid var(--line); }
+  .figrow { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(0,1fr); gap: clamp(1rem,4vw,3rem);
+            align-items: center; padding: clamp(1.6rem,4vh,3rem) var(--gutter);
+            border-bottom: 1px solid var(--line); }
+  .figrow .n { display: block; font-weight: 900; font-stretch: 124%; letter-spacing: -.045em; line-height: .78;
+               font-size: clamp(4rem, 11.5vw, 11rem); color: var(--laser); }
+  .figrow .u { display: block; margin-top: .5rem; font-weight: 700; font-stretch: 108%;
+               font-size: clamp(1.1rem, 1.9vw, 1.65rem); letter-spacing: -.01em; color: var(--white); }
+  .figrow .t { font-size: clamp(1.12rem,1.7vw,1.42rem); color: #cfd5dd; max-width: 34ch; font-weight: 500; }
+
+  /* sectors ------------------------------------------------------------ */
+  .sector { position: relative; display: block; height: clamp(360px, 62vh, 620px); overflow: hidden;
+            border-bottom: 1px solid var(--line); }
+  .sector img { position: absolute; inset: 0; height: 100%; object-fit: cover;
+                transition: transform .8s var(--ease); }
+  .sector.med img { object-position: 62% 45%; }
+  .sector::after { content: ''; position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(14,16,19,.94) 0%, rgba(14,16,19,.72) 42%, rgba(14,16,19,.25) 100%); }
+  .sector:hover img { transform: scale(1.045); }
+  .sector .in { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column;
+                justify-content: center; padding: 0 var(--gutter); }
+  .sector .n { font-weight: 900; font-stretch: 124%; letter-spacing: -.04em; line-height: .82;
+               font-size: clamp(2.6rem, 7vw, 6rem); color: var(--laser); }
+  .sector h2 { font-size: clamp(1.5rem,2.6vw,2.4rem); margin-top: .5rem; }
+  .sector p { margin-top: .7rem; color: #cfd5dd; max-width: 40ch; font-weight: 500; font-size: 1.08rem; }
+  .sector .go { margin-top: 1.1rem; font-weight: 700; font-size: 1rem; color: var(--laser);
+                border-bottom: 2px solid var(--laser); align-self: flex-start; padding-bottom: 2px; }
+  .sector .mono { margin-top: 1.4rem; }
+
+  /* ledger -------------------------------------------------------------- */
+  .band { background: var(--panel); padding-block: clamp(2.4rem,6vh,4.2rem); }
+  .band h2 { font-size: clamp(1.7rem,3.4vw,3rem); }
+  .ledger { margin-top: 1.8rem; border-top: 1px solid var(--line); }
+  .claim { display: grid; grid-template-columns: minmax(7rem,15%) minmax(0,1fr);
+           gap: clamp(1rem,3vw,2.4rem); padding: 1.25rem 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+  .claim .v { font-weight: 900; font-stretch: 120%; font-size: clamp(1.6rem,2.5vw,2.2rem);
+              letter-spacing: -.03em; color: var(--laser); }
+  .claim p { color: #cfd5dd; font-size: 1.06rem; }
+
+  .obj { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); gap: clamp(1.5rem,4vw,3.5rem);
+         align-items: center; padding-block: clamp(2.4rem,6vh,4.2rem); border-bottom: 1px solid var(--line); }
+  .obj model-viewer { width: 100%; height: clamp(340px, 50vh, 520px); background: transparent;
+                      --poster-color: transparent; cursor: grab; }
+  .obj h2 { font-size: clamp(1.6rem,3vw,2.6rem); }
+  .obj p { margin-top: .9rem; color: #cfd5dd; max-width: 44ch; font-size: 1.1rem; }
+  .obj .spec { margin-top: 1.4rem; display: grid; gap: .5rem; max-width: 26rem; }
+  .obj .spec div { display: flex; justify-content: space-between; gap: 1rem; padding-bottom: .45rem;
+                   border-bottom: 1px solid var(--line); font-size: 1rem; }
+  .obj .spec dt { color: var(--mute); font-weight: 600; }
+  .obj .spec dd { margin: 0; font-weight: 700; color: var(--laser); }
+  @media (max-width: 900px) { .obj { grid-template-columns: 1fr; } }
+
+  .strip { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); }
+  .strip figure { position: relative; margin: 0; overflow: hidden; height: clamp(240px,38vh,420px); }
+  .strip img { height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+  .strip figure:hover img { transform: scale(1.04); }
+  .strip figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 1rem 1.1rem;
+                      background: linear-gradient(180deg, transparent, rgba(9,10,12,.92)); }
+  .strip b { display: block; font-weight: 800; font-stretch: 112%; font-size: 1.2rem; margin-bottom: .2rem; }
+  @media (max-width: 900px) { .strip { grid-template-columns: 1fr; } }
+
+  .close { padding-block: clamp(3rem,8vh,5.5rem); }
+  .close .h { font-size: clamp(2rem,5vw,4.2rem); max-width: 18ch; }
+  .close .h em { font-style: normal; color: var(--laser); }
+  .close p { margin-top: 1.1rem; color: var(--mute); max-width: 46ch; font-size: 1.18rem; }
+
+  .sheet { padding-block: clamp(2rem,5vh,3.4rem); background: var(--panel); }
+  .sheet .in { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,22rem);
+               gap: clamp(1.5rem,4vw,3.5rem); align-items: center; }
+  .sheet figure { margin: 0; max-width: 22rem; }
+  .sheet img { border: 1px solid var(--line); }
+  .sheet h2 { font-size: clamp(1.5rem,2.6vw,2.2rem); }
+  .sheet p { margin-top: .8rem; color: #cfd5dd; max-width: 44ch; font-size: 1.1rem; }
+  .sheet .mono { margin-top: .8rem; }
+  @media (max-width: 900px) { .sheet .in { grid-template-columns: 1fr; } }
+
+  footer { border-top: 1px solid var(--line); padding: 1.3rem var(--gutter) 2.2rem;
+           display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; }
+  a:focus-visible { outline: 2px solid var(--laser); outline-offset: 3px; }
+
+  .js [data-r] { opacity: 0; transform: translateY(16px); }
+  .js [data-r].in { opacity: 1; transform: none; transition: opacity .55s var(--ease), transform .55s var(--ease); }
+
+  @media (max-width: 900px) {
+    .figrow, .claim { grid-template-columns: 1fr; }
+    .sector::after { background: linear-gradient(180deg, rgba(14,16,19,.5), rgba(14,16,19,.93)); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition-duration: .01ms !important; }
+    .js [data-r] { opacity: 1; transform: none; }
+  }
+</style>
+</helmet>
+
+<div>
+  <header class="masthead">
+    <a class="brand" href="Home.dc.html"><i></i>3D Printing</a>
+    <nav class="nav">
+      <a href="Home.dc.html" aria-current="page">Home</a>
+      <a href="Medical.dc.html">Medical</a>
+      <a href="Construction.dc.html">Construction</a>
+      <a href="Manufacturing.dc.html">Manufacturing</a>
+      <a href="References.dc.html">References</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <video src="media/print-loop.mp4" poster="media/print-poster.jpg" autoplay muted loop playsinline aria-label="Time-lapse of a laser fusing metal powder layer by layer to print a NASA alloy test part"></video>
+    <div class="hero-in">
+      <span class="tag">Laser powder-bed fusion, live</span>
+      <h1 class="h">3D printing and its <em>recent innovations</em></h1>
+      <p class="sub">Additive manufacturing has left the prototyping lab for operating theatres, construction sites and rocket factories.</p>
+      <p class="mono">NASA prints the GRX-810 alloy at the Powder Processing Lab. Public domain.</p>
+    </div>
+  </section>
+
+  <section class="figs">
+    <sc-for list="{{ figs }}" as="f" hint-placeholder-count="4">
+      <div class="figrow" data-r>
+        <span><span class="n">{{ f.n }}</span><span class="u">{{ f.unit }}</span></span>
+        <span class="t">{{ f.t }}</span>
+      </div>
+    </sc-for>
+  </section>
+
+  <section>
+    <sc-for list="{{ sectors }}" as="s" hint-placeholder-count="3">
+      <a class="sector {{ s.mod }}" href="{{ s.href }}">
+        <img src="{{ s.img }}" alt="{{ s.alt }}" />
+        <span class="in">
+          <span class="n">{{ s.n }}</span>
+          <h2 class="h">{{ s.title }}</h2>
+          <p>{{ s.body }}</p>
+          <span class="go">{{ s.cta }}</span>
+          <span class="mono">{{ s.credit }}</span>
+        </span>
+      </a>
+    </sc-for>
+  </section>
+
+  <section class="wrap obj">
+    <model-viewer src="media/wrench.glb" alt="An interactive 3D model of the ratcheting wrench NASA emailed to the International Space Station, which astronauts printed in orbit in December 2014"
+      camera-orbit="38deg 70deg 1.75m" min-camera-orbit="auto auto 1.2m" max-camera-orbit="auto auto 3m"
+      exposure="1.15" shadow-intensity="1.1" shadow-softness="0.8" environment-image="neutral"
+      camera-controls auto-rotate rotation-per-second="14deg" interaction-prompt="none"></model-viewer>
+    <div>
+      <span class="tag">Interactive — drag to rotate</span>
+      <h2 class="h">The first tool emailed to orbit</h2>
+      <p>In December 2014 NASA sent a wrench to the International Space Station as a file, not as cargo. Astronauts printed it on board. This is that print file, rendered from NASA's public-domain STL.</p>
+      <dl class="spec">
+        <div><dt>Length</dt><dd>114.2 mm</dd></div>
+        <div><dt>Layer height</dt><dd>0.2 mm — 130 layers</dd></div>
+        <div><dt>Triangles</dt><dd>14,564</dd></div>
+        <div><dt>Source</dt><dd>NASA, public domain</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="strip">
+    <figure>
+      <img src="media/specimens-powder.jpg" alt="Metal tensile test specimens standing in a bed of grey metal powder after laser melting" />
+      <figcaption><b>Test coupons, not products</b><span class="mono">Tensile specimens left standing in the powder bed after laser melting. FZU, CC BY-SA 4.0.</span></figcaption>
+    </figure>
+    <figure>
+      <img src="media/laser-window.jpg" alt="The same metal specimens seen through the green laser-safety window of the printer" />
+      <figcaption><b>Through the laser glass</b><span class="mono">The same build seen through the printer's laser-safety window. FZU, CC BY-SA 4.0.</span></figcaption>
+    </figure>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2 class="h">Every figure, and what weakens it</h2>
+      <div class="ledger">
+        <sc-for list="{{ claims }}" as="c" hint-placeholder-count="4">
+          <div class="claim" data-r>
+            <span class="v">{{ c.value }}</span>
+            <p>{{ c.claim }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap close">
+    <h2 class="h">The gap is <em>measurement</em>, not machines.</h2>
+    <p>Comparable methods, not faster printers, are what would let these results scale.</p>
+  </section>
+
+  <section class="sheet">
+    <div class="wrap">
+      <div class="in">
+        <div>
+          <h2 class="h">One sheet, all three sectors</h2>
+          <p>The figures on this site are spread across three industries that rarely get compared side by side. This summary sheet puts them on one page: what each sector claims, and the numbers behind it.</p>
+          <p class="mono">Designed by the author.</p>
+        </div>
+        <figure>
+          <img src="infographic.png" alt="Infographic summarising 3D printing innovations across the medical, construction and manufacturing industries" />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="mono">3D printing and its recent innovations</span>
+    <span class="mono"><a href="References.dc.html">References and image credits</a></span>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    document.documentElement.classList.add('js');
+    const els = document.querySelectorAll('[data-r]');
+    if (!('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('in')); return; }
+    this.io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); this.io.unobserve(e.target); }
+    }), { threshold: .2 });
+    els.forEach(e => this.io.observe(e));
+  }
+  componentWillUnmount() { if (this.io) this.io.disconnect(); }
+
+  renderVals() {
+    return {
+      figs: [
+        { n: '27', unit: 'of 45 studies', t: 'reported significantly better patient understanding when a printed anatomical model entered the consultation.' },
+        { n: '−32%', unit: 'less CO₂ than cast concrete', t: 'against conventional cast concrete, when fly-ash alkali-activated binders replace part of the cement.' },
+        { n: '1000', unit: 'parts become one', t: 'in a rocket engine injector, printed as a single piece in under two weeks at a tenth of the cost.' },
+        { n: '4.1%', unit: 'porosity, down from 13.9%', t: 'in carbon-fibre composites printed under vacuum, down from 13.9%, with flexural strength up by almost 25%.' }
+      ],
+      sectors: [
+        { title: 'Medical', href: 'Medical.dc.html', img: 'media/med-liver-model.jpg', mod: 'med', n: '15–20 min', cta: 'Open the medical evidence',
+          alt: 'A 3D-printed transparent liver model with vessels picked out in blue and pink and a tumour in green',
+          body: 'Cut from operating times when a printed model guides the plan. Trabecular bone implants now reach 12 MPa.',
+          credit: 'Wikimedia Commons, CC BY-SA 4.0' },
+        { title: 'Construction', href: 'Construction.dc.html', img: 'media/con-tecla-domes.jpg', mod: '', n: '−95%', cta: 'Open the construction evidence',
+          alt: 'Two domed clay houses printed on site, their walls formed of visible horizontal layers',
+          body: 'Estimated fall in build time. Cement production alone accounts for about 7% of global CO₂.',
+          credit: 'WASP and Mario Cucinella Architects, CC BY 2.5' },
+        { title: 'Manufacturing', href: 'Manufacturing.dc.html', img: 'media/mfg-detonation-engine.jpg', mod: '', n: '9 mo → 2 wk', cta: 'Open the manufacturing evidence',
+          alt: 'A 3D-printed rotating detonation rocket engine firing on a test stand',
+          body: 'Lead time for a rocket injector once built from more than a thousand separate components.',
+          credit: 'NASA' }
+      ],
+      claims: [
+        { value: '27 of 45', claim: 'studies found significantly better patient understanding with a printed model in the consultation.' },
+        { value: '−32%', claim: 'carbon emissions against conventional cast concrete.' },
+        { value: '−7.5%', claim: 'material saved on site by sensor-informed pump and robot speed control.' },
+        { value: '1000 → 1', claim: 'components in a rocket engine injector, at a tenth of the cost.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
