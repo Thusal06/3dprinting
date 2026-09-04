@@ -1,6 +1,6 @@
 {
   "framework": null,
-  "buildCommand": false,
+  "buildCommand": null,
   "rewrites": [
     { "source": "/", "destination": "/Home.dc.html" }
   ]
