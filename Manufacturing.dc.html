@@ -187,10 +187,14 @@
   .note { padding-block: clamp(2.2rem,6vh,4rem); border-bottom: 1px solid var(--line); }
   .note h2 { font-size: clamp(1.5rem,2.8vw,2.4rem); }
   .note p { margin-top: .9rem; color: #cfd5dd; max-width: 62ch; font-size: 1.15rem; line-height: 1.6; }
-  .note .embed { position: relative; width: 100%; max-width: 62ch; aspect-ratio: 16/9;
-                 margin-top: 1.2rem; border: 1px solid var(--line); overflow: hidden; }
-  .note .embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-  .note .embed + .mono { margin-top: .6rem; max-width: 62ch; }
+  .note-video { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+                gap: clamp(1.5rem,4vw,3.5rem); align-items: center; }
+  .note-video p { max-width: 44ch; }
+  .embed { position: relative; width: 100%; aspect-ratio: 16/9;
+           border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .embed + .mono { margin-top: .6rem; }
+  @media (max-width: 900px) { .note-video { grid-template-columns: 1fr; } }
   .warn { padding-block: clamp(2.2rem,6vh,4rem); background: var(--panel); }
   .warn h2 { font-size: clamp(1.5rem,2.8vw,2.4rem); color: var(--laser); }
   .warn p { margin-top: .9rem; color: #cfd5dd; max-width: 62ch; font-size: 1.15rem; line-height: 1.6; }
@@ -255,13 +259,17 @@
     <p>Printing carbon-fibre composites under vacuum conditions reduced porosity from 13.9% to 4.1% while increasing flexural strength by almost 25%: process refinement, not a new material, narrowing the performance gap with conventional production.</p>
   </section>
 
-  <section class="wrap note">
-    <h2 class="h">A thousand parts become one</h2>
-    <p>Rocket engine injectors conventionally required more than a thousand separate components and nine months to assemble. Printed, the same injector is a single piece produced in under two weeks at one tenth of the cost: fewer parts, less complexity, a shorter manufacturing chain.</p>
-    <div class="embed">
-      <iframe src="https://www.youtube.com/embed/kz165f1g8-E" title="The Genius of 3D Printed Rockets, Veritasium" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  <section class="wrap note note-video">
+    <div>
+      <h2 class="h">A thousand parts become one</h2>
+      <p>Rocket engine injectors conventionally required more than a thousand separate components and nine months to assemble. Printed, the same injector is a single piece produced in under two weeks at one tenth of the cost: fewer parts, less complexity, a shorter manufacturing chain.</p>
     </div>
-    <p class="mono">The Genius of 3D Printed Rockets. Veritasium, on Relativity Space's printed engines.</p>
+    <div>
+      <div class="embed">
+        <iframe src="https://www.youtube.com/embed/kz165f1g8-E" title="The Genius of 3D Printed Rockets, Veritasium" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <p class="mono">The Genius of 3D Printed Rockets. Veritasium, on Relativity Space's printed engines.</p>
+    </div>
   </section>
 
   <section class="figure2">
