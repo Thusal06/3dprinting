@@ -118,7 +118,9 @@
 
   .obj { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); gap: clamp(1.5rem,4vw,3.5rem);
          align-items: center; padding-block: clamp(2.4rem,6vh,4.2rem); border-bottom: 1px solid var(--line); }
-  .obj model-viewer { width: 100%; height: clamp(340px, 50vh, 520px); background: transparent;
+  .obj model-viewer { width: 100%; height: clamp(340px, 50vh, 520px);
+                      background: radial-gradient(60% 60% at 50% 55%, #23262c 0%, var(--panel) 65%, var(--bg) 100%);
+                      border: 1px solid var(--line); border-radius: 14px;
                       --poster-color: transparent; cursor: grab; }
   .obj h2 { font-size: clamp(1.6rem,3vw,2.6rem); }
   .obj p { margin-top: .9rem; color: #cfd5dd; max-width: 44ch; font-size: 1.1rem; }
@@ -321,7 +323,7 @@ class Component extends DCLogic {
           alt: 'Two domed clay houses printed on site, their walls formed of visible horizontal layers',
           body: 'Estimated fall in build time. Cement production alone accounts for about 7% of global CO₂.',
           credit: 'WASP and Mario Cucinella Architects, CC BY 2.5' },
-        { title: 'Manufacturing', href: 'Manufacturing.dc.html', img: 'media/mfg-detonation-engine.jpg', mod: '', n: '9 mo → 2 wk', cta: 'Open the manufacturing evidence',
+        { title: 'Manufacturing', href: 'Manufacturing.dc.html', img: 'media/mfg-detonation-engine.jpg', mod: '', n: '9 months → 2 weeks', cta: 'Open the manufacturing evidence',
           alt: 'A 3D-printed rotating detonation rocket engine firing on a test stand',
           body: 'Lead time for a rocket injector once built from more than a thousand separate components.',
           credit: 'NASA' }
