@@ -187,6 +187,10 @@
   .note { padding-block: clamp(2.2rem,6vh,4rem); border-bottom: 1px solid var(--line); }
   .note h2 { font-size: clamp(1.5rem,2.8vw,2.4rem); }
   .note p { margin-top: .9rem; color: #cfd5dd; max-width: 62ch; font-size: 1.15rem; line-height: 1.6; }
+  .note h2 .trend { display: inline-block; vertical-align: middle; margin-right: .55rem; width: 0; height: 0; }
+  .note h2 .trend.down { border-left: 9px solid transparent; border-right: 9px solid transparent; border-top: 14px solid var(--laser); }
+  .note h2 .trend.up { border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 14px solid var(--laser); }
+  .note h2 .trend.flat { width: 16px; height: 5px; border-radius: 3px; background: var(--laser); }
   .warn { padding-block: clamp(2.2rem,6vh,4rem); background: var(--panel); }
   .warn h2 { font-size: clamp(1.5rem,2.8vw,2.4rem); color: var(--laser); }
   .warn p { margin-top: .9rem; color: #cfd5dd; max-width: 62ch; font-size: 1.15rem; line-height: 1.6; }
@@ -247,12 +251,12 @@
   </section>
 
   <section class="wrap note">
-    <h2 class="h">A model in the consultation room</h2>
+    <h2 class="h"><span class="trend flat" aria-hidden="true"></span>A model in the consultation room</h2>
     <p>Across 45 studies published between 2015 and 2024, 27 recorded a statistically significant improvement in patient education when a printed anatomical model entered the consultation. Virtual 3D models are cheaper and faster to produce, but the evidence on which method works better remains inconclusive.</p>
   </section>
 
   <section class="wrap note">
-    <h2 class="h">Time off the table, strength in the bone</h2>
+    <h2 class="h"><span class="trend down" aria-hidden="true"></span>Time off the table, strength in the bone</h2>
     <p>Printed models used for pre-operative planning have cut operating times by 15 to 20 minutes, and in some procedures by more than an hour. Printed trabecular bone implants now reach compression strengths of up to 12 MPa, comparable to natural bone.</p>
   </section>
 
