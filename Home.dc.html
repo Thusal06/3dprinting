@@ -147,6 +147,7 @@
                gap: clamp(1.5rem,4vw,3.5rem); align-items: center; }
   .sheet figure { margin: 0; max-width: 22rem; overflow: hidden; }
   .sheet img { border: 1px solid var(--line); transition: transform .5s var(--ease); }
+  .sheet figure a { display: block; cursor: zoom-in; }
   .sheet figure:hover img { transform: scale(1.06); }
   .sheet h2 { font-size: clamp(1.5rem,2.6vw,2.2rem); }
   .sheet p { margin-top: .8rem; color: #cfd5dd; max-width: 44ch; font-size: 1.1rem; }
@@ -274,7 +275,9 @@
           <p class="mono">Designed by Thusal Ranawaka, made with Canva.</p>
         </div>
         <figure>
-          <img src="infographic.png" alt="Infographic summarising 3D printing innovations across the medical, construction and manufacturing industries" />
+          <a href="infographic.png" target="_blank" rel="noopener" aria-label="Open full-size infographic in a new tab">
+            <img src="infographic.png" alt="Infographic summarising 3D printing innovations across the medical, construction and manufacturing industries" />
+          </a>
         </figure>
       </div>
     </div>
