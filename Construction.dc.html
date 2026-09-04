@@ -173,7 +173,8 @@
   .phero img, .phero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .figure2 { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
   .figure2 figure { position: relative; margin: 0; overflow: hidden; height: clamp(240px,40vh,440px); }
-  .figure2 img { height: 100%; object-fit: cover; }
+  .figure2 img { height: 100%; object-fit: cover; transition: transform .5s var(--ease); }
+  .figure2 figure:hover img { transform: scale(1.06); }
   .figure2 figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 1rem 1.1rem;
                         background: linear-gradient(180deg, transparent, rgba(9,10,12,.94)); }
   .figure2 b { display: block; font-weight: 800; font-stretch: 112%; font-size: 1.2rem; margin-bottom: .2rem; }
@@ -253,6 +254,17 @@
   <section class="wrap note">
     <h2 class="h">Coal waste instead of cement</h2>
     <p>Across 55 articles published between 2017 and 2023, fly-ash — a waste by-product of coal power stations — used to make alkali-activated materials for construction printing showed far fewer weaknesses than conventional cement, whose production alone accounts for about 7% of global CO₂ emissions.</p>
+  </section>
+
+  <section class="figure2">
+    <figure>
+      <img src="media/con-printer-arm.jpg" alt="A gantry-arm concrete 3D printer extruding a wall bead by bead" />
+      <figcaption><b>The printer itself</b><span class="mono">A gantry-arm concrete printer laying down a wall in continuous beads. Misanthropic One, CC BY 2.0.</span></figcaption>
+    </figure>
+    <figure>
+      <img src="media/con-wallenhausen-house.jpg" alt="A completed 3D-printed concrete house in Wallenhausen, Germany, showing the ribbed printed wall texture" />
+      <figcaption><b>A printed house, finished</b><span class="mono">3D-Druck-Haus, Wallenhausen, Germany. Looniverse, CC BY-SA 4.0.</span></figcaption>
+    </figure>
   </section>
 
   <nav class="pager">
