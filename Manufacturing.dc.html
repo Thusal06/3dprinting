@@ -187,10 +187,6 @@
   .note { padding-block: clamp(2.2rem,6vh,4rem); border-bottom: 1px solid var(--line); }
   .note h2 { font-size: clamp(1.5rem,2.8vw,2.4rem); }
   .note p { margin-top: .9rem; color: #cfd5dd; max-width: 62ch; font-size: 1.15rem; line-height: 1.6; }
-  .note h2 .trend { display: inline-block; vertical-align: middle; margin-right: .55rem; width: 0; height: 0; }
-  .note h2 .trend.down { border-left: 9px solid transparent; border-right: 9px solid transparent; border-top: 14px solid var(--laser); }
-  .note h2 .trend.up { border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 14px solid var(--laser); }
-  .note h2 .trend.flat { width: 16px; height: 5px; border-radius: 3px; background: var(--laser); }
   .note-video { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr);
                 gap: clamp(1.5rem,4vw,3.5rem); align-items: center; }
   .note-video p { max-width: 44ch; }
@@ -259,7 +255,7 @@
   </section>
 
   <section class="wrap note">
-    <h2 class="h"><span class="trend down" aria-hidden="true"></span><span class="trend up" aria-hidden="true"></span>Printing under vacuum</h2>
+    <h2 class="h">Printing under vacuum</h2>
     <p>Printing carbon-fibre composites under vacuum conditions reduced porosity from 13.9% to 4.1% while increasing flexural strength by almost 25%: process refinement, not a new material, narrowing the performance gap with conventional production.</p>
   </section>
 
