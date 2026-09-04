@@ -43,7 +43,8 @@
   .brand { display: flex; align-items: center; gap: .6rem; padding: 0 var(--gutter);
            font-weight: 900; font-stretch: 122%; font-size: 1.05rem; letter-spacing: -.03em;
            border-right: 1px solid var(--line); }
-  .brand svg { width: 20px; height: 20px; fill: var(--laser); flex-shrink: 0; }
+  .brand svg { width: 20px; height: 20px; fill: var(--laser); flex-shrink: 0; animation: spin 6s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
   .nav { display: flex; }
   .nav a { position: relative; display: flex; align-items: center; padding: 1.05rem 1.35rem;
            font-size: .92rem; font-weight: 700; letter-spacing: .01em; color: var(--mute);
